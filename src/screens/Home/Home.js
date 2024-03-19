@@ -3,7 +3,6 @@ import { FlashList } from '@shopify/flash-list';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { Image, Pressable, TouchableOpacity, View } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import { useSelector } from 'react-redux';
 import FastImageComp from '../../components/FastImageComp';
 import TextComp from '../../components/TextComp';
@@ -65,11 +64,11 @@ const Home = ({ navigation }) => {
   //   fetchPosts();
   // }, []);
 
-    const fetchUserData = async (userId) => {
-      const userDoc = await firestore().collection('Users').doc(userId).get();
-      return userDoc.data();
-    };
- 
+  const fetchUserData = async (userId) => {
+    const userDoc = await firestore().collection('Users').doc(userId).get();
+    return userDoc.data();
+  };
+
   const userPosts = async () => {
 
 
@@ -89,15 +88,13 @@ const Home = ({ navigation }) => {
             });
 
           });
-          //console.log("posts++", posts);
-          //console.log("response+++", response);
 
           setPosts(posts);
         });
 
 
     } catch (error) {
-      //console.log('error raised', error);
+      throw error;
     }
   };
 
@@ -118,6 +115,7 @@ const Home = ({ navigation }) => {
       setPosts(clonerArry);
 
     } catch (error) {
+      throw error;
     }
 
   };
@@ -152,9 +150,7 @@ const Home = ({ navigation }) => {
     console.log("item==>", item);
 
     console.log()
-    //   const newDate = moment(date).format('dddd, MMMM DD YYYY, h:mm A');
     const newDate = moment(date).format('DD/MM/YYYY, h:mm A');
-    //console.log("all data++++", item);
 
     return (
       <Pressable onPress={() => onPresPost(item)} style={styles.boxStyle}>
@@ -169,15 +165,15 @@ const Home = ({ navigation }) => {
             <FastImageComp
               url={item?.userData.img}
               imageStyle={styles.profileImage}
-            />            
-     
+            />
+
 
             <View>
               <TextComp
                 text={item?.userData?.fullName}
                 style={styles.nameStyle}
-                
-                />
+
+              />
               {!!item?.user?.userId ? (
                 <TextComp
                   text={"dsd"}
@@ -199,7 +195,7 @@ const Home = ({ navigation }) => {
         <FastImageComp
           url={item?.file}
           imageStyle={styles.postImage}
-        />            
+        />
 
         {!!item?.description ? (
           <TextComp text={item?.description} style={styles.descStyle} />
@@ -245,7 +241,6 @@ const Home = ({ navigation }) => {
 
     );
   }
-
 
   const listEmptComp = () => {
     return (
