@@ -1,4 +1,3 @@
-//import liraries
 import React, { useEffect } from 'react';
 import Routes from './src/navigations/Routes';
 import { Provider } from 'react-redux';
@@ -33,7 +32,7 @@ const App = () => {
         dispatch(saveUserData(JSON.parse(data)));
       }
     } catch (error) {
-      //console.log('no data found');
+      throw error;
     }
   };
   const initiateTheme = async () => {
@@ -43,7 +42,7 @@ const App = () => {
         changeAppTheme(myTheme);
       }
     } catch (error) {
-      //console.log('no data found');
+      throw error;
     }
   };
 
@@ -54,7 +53,7 @@ const App = () => {
         changeLanguage(myLang);
       }
     } catch (error) {
-      //console.log('no data found');
+      throw error;
     }
   };
 
